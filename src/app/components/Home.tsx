@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { categories, getSongsByCategory } from "../data/songs";
+import { LayoutGrid, Clock } from "lucide-react";
+import { categories, getSongsByCategory, getSongsChronological } from "../data/songs";
 import { SongCard } from "./SongCard";
 import { useLanguage } from "../i18n/LanguageContext";
 import ui from "../i18n/ui";
 
+type ViewMode = "category" | "timeline";
+
 export function Home() {
+  const [viewMode, setViewMode] = useState<ViewMode>("category");
   const [activeCategory, setActiveCategory] = useState("all");
   const filteredSongs = getSongsByCategory(activeCategory);
+  const chronologicalGroups = getSongsChronological();
   const { lang } = useLanguage();
 
   return (
@@ -68,34 +73,83 @@ export function Home() {
 
       {/* Song Grid */}
       <section className="max-w-5xl mx-auto px-6 pb-16">
-        {/* Category filters */}
-        <div className="flex flex-wrap gap-2 mb-10 justify-center">
-          {categories.map((cat) => (
+        {/* View toggle */}
+        <div className="flex justify-center mb-6">
+          <div className="inline-flex rounded-full border border-border overflow-hidden">
             <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`text-[0.6875rem] tracking-[0.15em] uppercase px-4 py-2 rounded-full border transition-all duration-300 ${
-                activeCategory === cat.id
-                  ? "border-foreground/30 bg-foreground/10 text-foreground"
-                  : "border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground/80"
+              onClick={() => setViewMode("category")}
+              className={`flex items-center gap-1.5 text-[0.6875rem] tracking-[0.1em] uppercase px-4 py-2 transition-all duration-300 ${
+                viewMode === "category"
+                  ? "bg-foreground/10 text-foreground"
+                  : "text-muted-foreground hover:text-foreground/80"
               }`}
             >
-              {cat.label[lang]}
+              <LayoutGrid size={12} />
+              {ui.home.viewByCategory[lang]}
             </button>
-          ))}
+            <button
+              onClick={() => setViewMode("timeline")}
+              className={`flex items-center gap-1.5 text-[0.6875rem] tracking-[0.1em] uppercase px-4 py-2 transition-all duration-300 ${
+                viewMode === "timeline"
+                  ? "bg-foreground/10 text-foreground"
+                  : "text-muted-foreground hover:text-foreground/80"
+              }`}
+            >
+              <Clock size={12} />
+              {ui.home.viewByTime[lang]}
+            </button>
+          </div>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSongs.map((song, i) => (
-            <SongCard key={song.id} song={song} index={i} />
-          ))}
-        </div>
+        {viewMode === "category" && (
+          <>
+            {/* Category filters */}
+            <div className="flex flex-wrap gap-2 mb-10 justify-center">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`text-[0.6875rem] tracking-[0.15em] uppercase px-4 py-2 rounded-full border transition-all duration-300 ${
+                    activeCategory === cat.id
+                      ? "border-foreground/30 bg-foreground/10 text-foreground"
+                      : "border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground/80"
+                  }`}
+                >
+                  {cat.label[lang]}
+                </button>
+              ))}
+            </div>
 
-        {filteredSongs.length === 0 && (
-          <p className="text-center text-muted-foreground/50 mt-12 font-['Cormorant_Garamond',serif] italic text-[1.125rem]">
-            {ui.home.noSongs[lang]}
-          </p>
+            {/* Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredSongs.map((song, i) => (
+                <SongCard key={song.id} song={song} index={i} />
+              ))}
+            </div>
+
+            {filteredSongs.length === 0 && (
+              <p className="text-center text-muted-foreground/50 mt-12 font-['Cormorant_Garamond',serif] italic text-[1.125rem]">
+                {ui.home.noSongs[lang]}
+              </p>
+            )}
+          </>
+        )}
+
+        {viewMode === "timeline" && (
+          <div className="space-y-12">
+            {chronologicalGroups.map((group) => (
+              <div key={group.label}>
+                <h2 className="text-[0.8125rem] tracking-[0.2em] uppercase text-muted-foreground/50 mb-6 text-center font-['Cormorant_Garamond',serif]">
+                  {group.label}
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {group.songs.map((song, i) => (
+                    <SongCard key={song.id} song={song} index={i} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </section>
 

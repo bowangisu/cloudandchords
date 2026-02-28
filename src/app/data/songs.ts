@@ -14,6 +14,7 @@ export interface Song {
   behindTheSong?: BilingualText;
   duration: string;
   audioFile?: string;
+  releaseDate: string; // "YYYY-MM" format for sorting
 }
 
 export const categories: { id: string; label: BilingualText }[] = [
@@ -29,6 +30,7 @@ export const categories: { id: string; label: BilingualText }[] = [
 export const songs: Song[] = [
   {
     id: "red",
+    releaseDate: "2026-02",
     title: { en: "Red", zh: "Red" },
     subtitle: { en: "A love that colors everything", zh: "染红一切的爱" },
     category: "love",
@@ -39,7 +41,7 @@ export const songs: Song[] = [
     coverImage: "/cover/RED.jpeg",
     duration: "5:12",
     originalLanguage: "en",
-    audioFile: "/songs/Red.wav",
+    audioFile: "/songs/Red.mp3",
     lyrics: `Look at the sky tonight,
 It's burning in your eyes,
 Every little spark you hide
@@ -118,6 +120,7 @@ Red.`,
   },
   {
     id: "yi-bian-yi-bian",
+    releaseDate: "2026-01",
     title: { en: "On One Hand, On the Other", zh: "一边一边" },
     subtitle: { en: "The contradictions we live with", zh: "我们与矛盾共存" },
     category: "reflection",
@@ -128,7 +131,7 @@ Red.`,
     coverImage: "/cover/一边一边.jpeg",
     duration: "4:35",
     originalLanguage: "zh",
-    audioFile: "/songs/一边一边.wav",
+    audioFile: "/songs/一边一边.mp3",
     lyrics: `你走过很长很长的路，
 想看转过街角的风景。
 年少的时候不服输，
@@ -220,6 +223,7 @@ Red.`,
   },
   {
     id: "dao-guang-qin-ying",
+    releaseDate: "2025-10",
     title: { en: "Swords & Strings", zh: "刀光琴影" },
     subtitle: { en: "A wuxia love lost to the rivers and lakes", zh: "江湖儿女情长" },
     category: "wuxia",
@@ -230,7 +234,7 @@ Red.`,
     coverImage: "/cover/刀光舞影.jpeg",
     duration: "4:22",
     originalLanguage: "zh",
-    audioFile: "/songs/刀光舞影.wav",
+    audioFile: "/songs/刀光舞影.mp3",
     lyrics: `踏雪无声，夜半出城，
 剑光冷冷，照我半生。
 她说江湖远，爱也长，
@@ -277,6 +281,7 @@ Red.`,
   },
   {
     id: "tong-yi-shu-guang",
+    releaseDate: "2026-01",
     title: { en: "The Same Light", zh: "同一束光" },
     subtitle: { en: "All paths lead to the same truth", zh: "万路同归" },
     category: "faith",
@@ -287,7 +292,7 @@ Red.`,
     coverImage: "/cover/同一束光.jpeg",
     duration: "5:03",
     originalLanguage: "zh",
-    audioFile: "/songs/同一束光.wav",
+    audioFile: "/songs/同一束光.mp3",
     lyrics: `无名的风
 穿过沙漠与雪山
 在夜空下
@@ -368,6 +373,7 @@ Salaam ——
   },
   {
     id: "man-man-zhang-da",
+    releaseDate: "2025-06",
     title: { en: "Growing Up Slowly", zh: "慢慢长大" },
     subtitle: { en: "A father's letter to his child", zh: "写给孩子的信" },
     category: "family",
@@ -378,7 +384,7 @@ Salaam ——
     coverImage: "/cover/慢慢长大.jpeg",
     duration: "4:18",
     originalLanguage: "zh",
-    audioFile: "/songs/慢慢长大.wav",
+    audioFile: "/songs/慢慢长大.mp3",
     lyrics: `你还是学不会自己穿袜子
 总是赖着我，说"爸爸帮一下"
 清晨的阳光洒进小小的房间
@@ -430,6 +436,7 @@ Salaam ——
   },
   {
     id: "tai-qi-tou-ji-xu-zou",
+    releaseDate: "2025-07",
     title: { en: "Lift Your Head, Keep Walking", zh: "抬起头继续走" },
     subtitle: { en: "For everyone fighting their quiet battles", zh: "献给每个默默奋斗的人" },
     category: "resilience",
@@ -440,7 +447,7 @@ Salaam ——
     coverImage: "/cover/抬起头继续走.jpeg",
     duration: "4:05",
     originalLanguage: "zh",
-    audioFile: "/songs/抬起头继续走.wav",
+    audioFile: "/songs/抬起头继续走.mp3",
     lyrics: `凌晨的灯还亮着光，
 你独自走在回家的路上。
 肩上的梦有些沉重，
@@ -483,6 +490,7 @@ Salaam ——
   },
   {
     id: "chang-ye-gu-zhou",
+    releaseDate: "2025-07",
     title: { en: "Lone Boat in the Long Night", zh: "长夜孤舟" },
     subtitle: { en: "A poet's exile, a rebel's fury", zh: "诗人的流放，反叛者的怒火" },
     category: "wuxia",
@@ -493,7 +501,7 @@ Salaam ——
     coverImage: "/cover/长夜孤舟.jpeg",
     duration: "3:55",
     originalLanguage: "zh",
-    audioFile: "/songs/长夜孤舟.wav",
+    audioFile: "/songs/长夜孤舟.mp3",
     lyrics: `谪居千里之外，孤影随江水漂
 一纸诏书，碎我梦中画桥
 星沉海底，谁听我长啸？
@@ -529,6 +537,7 @@ Salaam ——
   },
   {
     id: "chang-an-blues",
+    releaseDate: "2025-06",
     title: { en: "Chang'an Blues", zh: "长安布鲁斯" },
     subtitle: { en: "A love letter to Xi'an, across the ocean", zh: "隔着大洋写给西安的情书" },
     category: "love",
@@ -539,7 +548,7 @@ Salaam ——
     coverImage: "/cover/长安布鲁斯.jpeg",
     duration: "5:28",
     originalLanguage: "zh",
-    audioFile: "/songs/长安布鲁斯  (Remastered).wav",
+    audioFile: "/songs/长安布鲁斯  (Remastered).mp3",
     lyrics: `清晨醒来，又是异乡的床
 清晨醒来，又是异乡的窗
 梦里她还在长安，
@@ -596,4 +605,21 @@ export function getSongById(id: string): Song | undefined {
 export function getSongsByCategory(category: string): Song[] {
   if (category === "all") return songs;
   return songs.filter((s) => s.category === category);
+}
+
+export function getSongsChronological(): { label: string; songs: Song[] }[] {
+  const sorted = [...songs].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+  const groups: { label: string; songs: Song[] }[] = [];
+  for (const song of sorted) {
+    const [year, month] = song.releaseDate.split("-");
+    const date = new Date(parseInt(year), parseInt(month) - 1);
+    const label = date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+    const existing = groups.find((g) => g.label === label);
+    if (existing) {
+      existing.songs.push(song);
+    } else {
+      groups.push({ label, songs: [song] });
+    }
+  }
+  return groups;
 }

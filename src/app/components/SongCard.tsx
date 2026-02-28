@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Share2, Check } from "lucide-react";
+import { useState } from "react";
 import type { Song } from "../data/songs";
 import { categories } from "../data/songs";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -28,10 +29,22 @@ export function SongCard({ song, index }: SongCardProps) {
   const isThisPlaying = isCurrentSong && isPlaying;
   const catLabel = categories.find((c) => c.id === song.category)?.label[lang] ?? song.category;
 
+  const [copied, setCopied] = useState(false);
+
   const handlePlay = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     playSong(song);
+  };
+
+  const handleShare = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = `${window.location.origin}/song/${song.id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   return (
@@ -98,10 +111,18 @@ export function SongCard({ song, index }: SongCardProps) {
             </div>
           )}
 
-          {/* Duration badge */}
-          <span className="absolute top-3 right-3 text-[0.6875rem] text-white/70 bg-black/40 backdrop-blur-sm px-2 py-0.5 rounded-full">
-            {song.duration}
-          </span>
+          {/* Duration badge & share button */}
+          <div className="absolute top-3 right-3 flex items-center gap-1.5">
+            <button
+              onClick={handleShare}
+              className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
+            >
+              {copied ? <Check size={13} /> : <Share2 size={13} />}
+            </button>
+            <span className="text-[0.6875rem] text-white/70 bg-black/40 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              {song.duration}
+            </span>
+          </div>
 
           {/* Category badge */}
           <span

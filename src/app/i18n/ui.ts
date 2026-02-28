@@ -14,6 +14,8 @@ const ui = {
       zh: "AI辅助音乐，探索野心、疑虑、爱与成长。\n一个在科技与温柔交汇处的个人创作空间。",
     },
     noSongs:        { en: "No songs in this category yet.", zh: "该分类暂无歌曲。" },
+    viewByCategory: { en: "By Category",   zh: "按分类" },
+    viewByTime:     { en: "By Timeline",   zh: "按时间" },
     usageRights:    { en: "Usage & Rights", zh: "使用与版权" },
     disclaimer: {
       en: "All songs, lyrics, and original content on this site are created by Bo Wang and are protected under applicable copyright laws. You are welcome to listen, share, and enjoy this music for personal, non-commercial purposes. If you wish to use any material for commercial purposes — including but not limited to licensing, sampling, redistribution, synchronization, or public performance — please contact me in advance to obtain written permission. Unauthorized commercial use is prohibited. By accessing this site, you acknowledge and agree to these terms.",
