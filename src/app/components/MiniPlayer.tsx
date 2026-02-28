@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Play, Pause, X, Volume2, VolumeX } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-router";
 import { usePlayer } from "./PlayerContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -16,8 +15,9 @@ export function MiniPlayer() {
     togglePlay,
     seekTo,
     stop,
+    isMuted,
+    toggleMute,
   } = usePlayer();
-  const [isMuted, setIsMuted] = useState(false);
   const { lang } = useLanguage();
 
   const formatTime = (seconds: number) => {
@@ -90,7 +90,7 @@ export function MiniPlayer() {
             {/* Controls */}
             <div className="flex items-center gap-2 flex-shrink-0">
               <button
-                onClick={() => setIsMuted(!isMuted)}
+                onClick={toggleMute}
                 className="hidden sm:flex text-muted-foreground/50 hover:text-foreground transition-colors p-1.5"
               >
                 {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
