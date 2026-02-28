@@ -1,6 +1,10 @@
 import { motion } from "motion/react";
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 export function About() {
+  const { lang } = useLanguage();
+
   return (
     <div className="max-w-2xl mx-auto px-6 py-16 md:py-24">
       <motion.div
@@ -9,11 +13,11 @@ export function About() {
         transition={{ duration: 0.7 }}
       >
         <p className="text-[0.75rem] tracking-[0.3em] uppercase text-muted-foreground/50 mb-6">
-          About
+          {ui.about.label[lang]}
         </p>
 
         <h1 className="font-['Cormorant_Garamond',serif] text-[2rem] md:text-[2.5rem] text-foreground/95 leading-tight mb-12">
-          Who I Am
+          {ui.about.title[lang]}
         </h1>
       </motion.div>
 
@@ -24,10 +28,7 @@ export function About() {
           transition={{ duration: 0.7, delay: 0.15 }}
         >
           <p className="text-[0.9375rem] text-muted-foreground/80 leading-[1.8]">
-            I'm Bo. I build things in AI during the day — leading teams,
-            shipping products, navigating the strange frontier of what machines
-            can and cannot understand. At night, after the meetings and the
-            metrics, I make music.
+            {ui.about.section1[lang]}
           </p>
         </motion.section>
 
@@ -37,12 +38,9 @@ export function About() {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <p className="text-[0.9375rem] text-muted-foreground/80 leading-[1.8]">
-            Not the kind of music that charts or goes viral. The kind that
-            happens when you sit with an AI co-writer at 2am and ask it to help
-            you say something you've been carrying for months. The kind that
-            exists at the intersection of{" "}
+            {ui.about.section2[lang]}{" "}
             <span className="text-foreground/90 italic font-['Cormorant_Garamond',serif]">
-              technology, fatherhood, ambition, and doubt
+              {ui.about.section2Highlight[lang]}
             </span>
             .
           </p>
@@ -59,20 +57,13 @@ export function About() {
           transition={{ duration: 0.7, delay: 0.45 }}
         >
           <h2 className="font-['Cormorant_Garamond',serif] text-[1.5rem] text-foreground/90 mb-4">
-            Why AI Music
+            {ui.about.whyAiMusic[lang]}
           </h2>
           <p className="text-[0.9375rem] text-muted-foreground/80 leading-[1.8]">
-            I'm not a trained musician. I never learned to play an instrument
-            past fumbling through a few chords. But I've always had melodies in
-            my head and words that needed somewhere to go. AI gave me that
-            somewhere.
+            {ui.about.section3a[lang]}
           </p>
           <p className="text-[0.9375rem] text-muted-foreground/80 leading-[1.8] mt-4">
-            These tools don't replace artistry — they{" "}
-            <span className="text-foreground/70">democratize access</span> to
-            it. What I bring is the intention, the lived experience, the
-            vulnerability. What AI brings is the musical canvas I never had. The
-            result is something neither of us could make alone.
+            {ui.about.section3b[lang]}
           </p>
         </motion.section>
 
@@ -87,16 +78,13 @@ export function About() {
           transition={{ duration: 0.7, delay: 0.6 }}
         >
           <h2 className="font-['Cormorant_Garamond',serif] text-[1.5rem] text-foreground/90 mb-4">
-            Why I Publish Publicly
+            {ui.about.whyPublish[lang]}
           </h2>
           <p className="text-[0.9375rem] text-muted-foreground/80 leading-[1.8]">
-            Because the things we make in private tend to stay unfinished.
-            Because there's something honest about sharing work that isn't
-            perfect. Because somewhere, someone who also builds AI by day and
-            feels things deeply by night might hear one of these songs and think:{" "}
-            <span className="text-foreground/80 italic font-['Cormorant_Garamond',serif]">
-              "I'm not the only one."
-            </span>
+            {ui.about.section4[lang]}
+          </p>
+          <p className="text-[0.9375rem] text-foreground/60 leading-[1.8] mt-4 italic font-['Cormorant_Garamond',serif] text-center">
+            {ui.about.section4Quote[lang]}
           </p>
         </motion.section>
 
@@ -111,15 +99,10 @@ export function About() {
           transition={{ duration: 0.7, delay: 0.75 }}
         >
           <h2 className="font-['Cormorant_Garamond',serif] text-[1.5rem] text-foreground/90 mb-4">
-            A Note to My Daughters
+            {ui.about.noteTitle[lang]}
           </h2>
           <p className="text-[0.9375rem] text-muted-foreground/70 leading-[1.8] italic font-['Cormorant_Garamond',serif]">
-            If you're reading this someday — hi. These songs are timestamps.
-            Proof that your dad wasn't just building companies and attending
-            meetings. He was also trying to make sense of the world, of himself,
-            of the extraordinary luck of being your father. Every lyric is a
-            small letter to the future. I hope at least one of them makes you
-            smile.
+            {ui.about.section5[lang]}
           </p>
         </motion.section>
 

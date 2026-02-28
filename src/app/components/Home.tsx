@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { songs, categories, getSongsByCategory } from "../data/songs";
+import { categories, getSongsByCategory } from "../data/songs";
 import { SongCard } from "./SongCard";
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 export function Home() {
   const [activeCategory, setActiveCategory] = useState("all");
   const filteredSongs = getSongsByCategory(activeCategory);
+  const { lang } = useLanguage();
 
   return (
     <div>
@@ -22,7 +25,7 @@ export function Home() {
             transition={{ duration: 0.8 }}
             className="text-[0.75rem] tracking-[0.3em] uppercase text-muted-foreground/60 mb-6"
           >
-            Bo Wang — AI Songs & Reflections
+            {ui.home.tagline[lang]}
           </motion.p>
 
           <motion.h1
@@ -31,10 +34,10 @@ export function Home() {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="font-['Cormorant_Garamond',serif] text-[2.5rem] md:text-[3.5rem] leading-[1.15] text-foreground/95 mb-6"
           >
-            Songs written between
+            {ui.home.hero1[lang]}
             <br />
             <span className="italic text-foreground/60">
-              code and quiet nights.
+              {ui.home.hero2[lang]}
             </span>
           </motion.h1>
 
@@ -44,10 +47,12 @@ export function Home() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-[0.9375rem] text-muted-foreground/70 max-w-xl mx-auto leading-relaxed"
           >
-            AI-assisted music exploring ambition, doubt, love, and becoming.
-            <br className="hidden sm:block" />
-            A personal creative home at the intersection of technology and
-            tenderness.
+            {ui.home.heroDesc[lang].split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                {i === 0 && <br className="hidden sm:block" />}
+              </span>
+            ))}
           </motion.p>
 
           <motion.div
@@ -75,7 +80,7 @@ export function Home() {
                   : "border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground/80"
               }`}
             >
-              {cat.label}
+              {cat.label[lang]}
             </button>
           ))}
         </div>
@@ -89,7 +94,7 @@ export function Home() {
 
         {filteredSongs.length === 0 && (
           <p className="text-center text-muted-foreground/50 mt-12 font-['Cormorant_Garamond',serif] italic text-[1.125rem]">
-            No songs in this category yet.
+            {ui.home.noSongs[lang]}
           </p>
         )}
       </section>
@@ -98,13 +103,13 @@ export function Home() {
       <section className="max-w-3xl mx-auto px-6 pb-16">
         <div className="border-t border-border pt-10">
           <p className="text-[0.6875rem] tracking-wider uppercase text-muted-foreground/40 mb-3">
-            Usage & Rights
+            {ui.home.usageRights[lang]}
           </p>
           <p className="text-[0.8125rem] text-muted-foreground/50 leading-relaxed">
-            All songs, lyrics, and original content on this site are created by Bo Wang and are protected under applicable copyright laws. You are welcome to listen, share, and enjoy this music for personal, non-commercial purposes. If you wish to use any material for commercial purposes — including but not limited to licensing, sampling, redistribution, synchronization, or public performance — please contact me in advance to obtain written permission. Unauthorized commercial use is prohibited. By accessing this site, you acknowledge and agree to these terms.
+            {ui.home.disclaimer[lang]}
           </p>
           <p className="text-[0.8125rem] text-muted-foreground/40 mt-3 italic font-['Cormorant_Garamond',serif]">
-            For inquiries, reach out via the Support page or email directly.
+            {ui.home.disclaimerNote[lang]}
           </p>
         </div>
       </section>

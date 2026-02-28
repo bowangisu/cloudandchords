@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { posts, postCategories, getPostsByCategory, type BlogPost } from "../data/posts";
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 const categoryAccents: Record<string, string> = {
   ai: "text-blue-300/70",
@@ -13,6 +15,8 @@ const categoryAccents: Record<string, string> = {
 };
 
 function PostCard({ post, index }: { post: BlogPost; index: number }) {
+  const { lang } = useLanguage();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -30,7 +34,7 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
               {post.date}
             </p>
             <p className="text-[0.6875rem] text-muted-foreground/30 mt-0.5">
-              {post.readTime} read
+              {post.readTime[lang]} {ui.blog.readSuffix[lang]}
             </p>
           </div>
 
@@ -41,23 +45,23 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
                 categoryAccents[post.category] || "text-muted-foreground/60"
               }`}
             >
-              {post.category}
+              {postCategories.find((c) => c.id === post.category)?.label[lang] ?? post.category}
             </span>
 
             <h2 className="font-['Cormorant_Garamond',serif] text-[1.375rem] text-foreground/90 mt-1.5 mb-1 group-hover:text-foreground transition-colors leading-snug">
-              {post.title}
+              {post.title[lang]}
             </h2>
 
             <p className="text-[0.8125rem] text-muted-foreground/50 italic font-['Cormorant_Garamond',serif] mb-3">
-              {post.subtitle}
+              {post.subtitle[lang]}
             </p>
 
             <p className="text-[0.8125rem] text-muted-foreground/60 leading-relaxed line-clamp-2">
-              {post.excerpt}
+              {post.excerpt[lang]}
             </p>
 
             <span className="inline-flex items-center gap-1.5 mt-4 text-[0.75rem] text-muted-foreground/40 group-hover:text-foreground/60 transition-colors tracking-wider">
-              Read
+              {ui.blog.read[lang]}
               <ArrowRight
                 size={12}
                 className="group-hover:translate-x-1 transition-transform duration-300"
@@ -73,6 +77,7 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
 export function Blog() {
   const [activeCategory, setActiveCategory] = useState("all");
   const filteredPosts = getPostsByCategory(activeCategory);
+  const { lang } = useLanguage();
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">
@@ -84,16 +89,15 @@ export function Blog() {
         className="mb-14"
       >
         <p className="text-[0.75rem] tracking-[0.3em] uppercase text-muted-foreground/50 mb-6">
-          Blog
+          {ui.blog.label[lang]}
         </p>
 
         <h1 className="font-['Cormorant_Garamond',serif] text-[2rem] md:text-[2.5rem] text-foreground/95 leading-tight mb-4">
-          Thoughts & Reflections
+          {ui.blog.title[lang]}
         </h1>
 
         <p className="text-[0.9375rem] text-muted-foreground/60 leading-relaxed max-w-lg">
-          On AI, meaning, identity, fatherhood, and the things that keep me
-          awake. Not essays — just honest thinking, written down.
+          {ui.blog.description[lang]}
         </p>
       </motion.div>
 
@@ -114,7 +118,7 @@ export function Blog() {
                 : "border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground/80"
             }`}
           >
-            {cat.label}
+            {cat.label[lang]}
           </button>
         ))}
       </motion.div>
@@ -128,7 +132,7 @@ export function Blog() {
 
       {filteredPosts.length === 0 && (
         <p className="text-center text-muted-foreground/50 mt-16 font-['Cormorant_Garamond',serif] italic text-[1.125rem]">
-          No posts in this category yet.
+          {ui.blog.noPosts[lang]}
         </p>
       )}
 

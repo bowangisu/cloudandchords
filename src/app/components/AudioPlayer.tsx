@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 interface AudioPlayerProps {
   title: string;
@@ -11,6 +13,7 @@ export function AudioPlayer({ title, duration }: AudioPlayerProps) {
   const [progress, setProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { lang } = useLanguage();
 
   // Parse duration string to seconds
   const totalSeconds = (() => {
@@ -77,7 +80,7 @@ export function AudioPlayer({ title, duration }: AudioPlayerProps) {
 
         <div className="flex-1">
           <p className="text-[0.8125rem] text-muted-foreground mb-2">
-            Now playing — <span className="text-foreground/80">{title}</span>
+            {ui.song.nowPlaying[lang]} — <span className="text-foreground/80">{title}</span>
           </p>
 
           {/* Progress bar */}
@@ -112,7 +115,7 @@ export function AudioPlayer({ title, duration }: AudioPlayerProps) {
       </div>
 
       <p className="text-[0.6875rem] text-muted-foreground/40 text-center italic font-['Cormorant_Garamond',serif]">
-        Demo playback — full audio coming soon
+        {ui.song.demoPlayback[lang]}
       </p>
     </div>
   );

@@ -2,19 +2,23 @@ import { Music, User, Heart, Menu, X, PenLine } from "lucide-react";
 import { useState } from "react";
 import { PlayerProvider } from "./PlayerContext";
 import { MiniPlayer } from "./MiniPlayer";
+import { LanguageToggle } from "./LanguageToggle";
 import { Link, Outlet, useLocation } from "react-router";
 import { motion } from "motion/react";
-
-const navLinks = [
-  { to: "/", label: "Songs", icon: Music },
-  { to: "/blog", label: "Blog", icon: PenLine },
-  { to: "/about", label: "About", icon: User },
-  { to: "/support", label: "Support", icon: Heart },
-];
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 export function Layout() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { lang } = useLanguage();
+
+  const navLinks = [
+    { to: "/", label: ui.nav.songs[lang], icon: Music },
+    { to: "/blog", label: ui.nav.blog[lang], icon: PenLine },
+    { to: "/about", label: ui.nav.about[lang], icon: User },
+    { to: "/support", label: ui.nav.support[lang], icon: Heart },
+  ];
 
   return (
     <PlayerProvider>
@@ -26,7 +30,7 @@ export function Layout() {
             to="/"
             className="font-['Cormorant_Garamond',serif] text-[1.25rem] tracking-wide text-foreground hover:text-foreground/80 transition-colors"
           >
-            Between Cloud & Chords
+            {ui.siteName[lang]}
           </Link>
 
           {/* Desktop nav */}
@@ -51,15 +55,19 @@ export function Layout() {
                 </Link>
               );
             })}
+            <LanguageToggle />
           </div>
 
           {/* Mobile hamburger */}
-          <button
-            className="md:hidden text-foreground p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageToggle />
+            <button
+              className="text-foreground p-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
@@ -95,10 +103,10 @@ export function Layout() {
       <footer className="border-t border-border mt-24">
         <div className="max-w-5xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[0.75rem] text-muted-foreground tracking-wider">
-            Bo Wang — AI Songs & Reflections
+            {ui.footer.tagline[lang]}
           </p>
           <p className="text-[0.75rem] text-muted-foreground/50 tracking-wider font-['Cormorant_Garamond',serif] italic">
-            Written between code and quiet nights
+            {ui.footer.subtitle[lang]}
           </p>
         </div>
       </footer>

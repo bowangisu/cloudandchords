@@ -3,7 +3,6 @@ import { motion } from "motion/react";
 import {
   ArrowLeft,
   Share2,
-  Heart,
   ChevronDown,
   ChevronUp,
   Coffee,
@@ -11,16 +10,19 @@ import {
   Pause,
 } from "lucide-react";
 import { useState } from "react";
-import { getSongById } from "../data/songs";
+import { getSongById, categories } from "../data/songs";
 import { usePlayer } from "./PlayerContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 const categoryColors: Record<string, string> = {
-  leadership: "bg-amber-900/30 text-amber-200/80",
-  founder: "bg-blue-900/30 text-blue-200/80",
-  blues: "bg-purple-900/30 text-purple-200/80",
+  love: "bg-rose-900/30 text-rose-200/80",
   reflection: "bg-stone-800/40 text-stone-300/80",
-  family: "bg-rose-900/30 text-rose-200/80",
+  wuxia: "bg-amber-900/30 text-amber-200/80",
+  faith: "bg-blue-900/30 text-blue-200/80",
+  family: "bg-emerald-900/30 text-emerald-200/80",
+  resilience: "bg-purple-900/30 text-purple-200/80",
 };
 
 export function SongPage() {
@@ -30,17 +32,18 @@ export function SongPage() {
   const [showBehind, setShowBehind] = useState(false);
   const [copied, setCopied] = useState(false);
   const { currentSong, isPlaying, playSong } = usePlayer();
+  const { lang } = useLanguage();
 
   if (!song) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Song not found.</p>
+          <p className="text-muted-foreground mb-4">{ui.song.notFound[lang]}</p>
           <Link
             to="/"
             className="text-foreground/70 hover:text-foreground transition-colors text-[0.875rem]"
           >
-            &larr; Back to songs
+            &larr; {ui.song.backToSongs[lang]}
           </Link>
         </div>
       </div>
@@ -48,6 +51,7 @@ export function SongPage() {
   }
 
   const isThisPlaying = currentSong?.id === song.id && isPlaying;
+  const catLabel = categories.find((c) => c.id === song.category)?.label[lang] ?? song.category;
 
   const handleShare = () => {
     const url = window.location.href;
@@ -70,7 +74,7 @@ export function SongPage() {
           className="inline-flex items-center gap-2 text-[0.8125rem] text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
           <ArrowLeft size={14} />
-          Back to songs
+          {ui.song.backToSongs[lang]}
         </Link>
       </motion.div>
 
@@ -83,7 +87,7 @@ export function SongPage() {
       >
         <ImageWithFallback
           src={song.coverImage}
-          alt={song.title}
+          alt={song.title[lang]}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -94,13 +98,13 @@ export function SongPage() {
               categoryColors[song.category] || "bg-stone-800/40 text-stone-300/80"
             }`}
           >
-            {song.category}
+            {catLabel}
           </span>
           <h1 className="font-['Cormorant_Garamond',serif] text-[2rem] md:text-[2.5rem] text-white leading-tight">
-            {song.title}
+            {song.title[lang]}
           </h1>
           <p className="text-[0.9375rem] text-white/60 mt-1 italic font-['Cormorant_Garamond',serif]">
-            {song.subtitle}
+            {song.subtitle[lang]}
           </p>
         </div>
       </motion.div>
@@ -112,7 +116,7 @@ export function SongPage() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="text-[0.9375rem] text-muted-foreground/80 leading-relaxed mb-8"
       >
-        {song.description}
+        {song.description[lang]}
       </motion.p>
 
       {/* Play Button */}
@@ -137,8 +141,8 @@ export function SongPage() {
 
             <div className="flex-1">
               <p className="text-[0.8125rem] text-muted-foreground">
-                {isThisPlaying ? "Now playing" : "Play"} —{" "}
-                <span className="text-foreground/80">{song.title}</span>
+                {isThisPlaying ? ui.song.nowPlaying[lang] : ui.song.play[lang]} —{" "}
+                <span className="text-foreground/80">{song.title[lang]}</span>
               </p>
               <p className="text-[0.6875rem] text-muted-foreground/40 mt-0.5">
                 {song.duration}
@@ -167,7 +171,7 @@ export function SongPage() {
           </div>
 
           <p className="text-[0.6875rem] text-muted-foreground/40 text-center italic font-['Cormorant_Garamond',serif] mt-4">
-            Demo playback — full audio coming soon
+            {ui.song.demoPlayback[lang]}
           </p>
         </div>
       </motion.div>
@@ -184,7 +188,7 @@ export function SongPage() {
           className="inline-flex items-center gap-2 text-[0.75rem] tracking-wider uppercase text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20 px-4 py-2.5 rounded-full transition-all"
         >
           <Share2 size={13} />
-          {copied ? "Link copied!" : "Share"}
+          {copied ? ui.song.linkCopied[lang] : ui.song.share[lang]}
         </button>
 
         <a
@@ -194,7 +198,7 @@ export function SongPage() {
           className="inline-flex items-center gap-2 text-[0.75rem] tracking-wider uppercase text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20 px-4 py-2.5 rounded-full transition-all"
         >
           <Coffee size={13} />
-          Support
+          {ui.song.support[lang]}
         </a>
       </motion.div>
 
@@ -210,7 +214,7 @@ export function SongPage() {
           className="flex items-center gap-2 text-[0.8125rem] text-foreground/80 mb-4 hover:text-foreground transition-colors"
         >
           <span className="tracking-wider uppercase text-[0.75rem]">
-            Lyrics
+            {ui.song.lyrics[lang]}
           </span>
           {showLyrics ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
@@ -222,6 +226,11 @@ export function SongPage() {
             transition={{ duration: 0.4 }}
             className="bg-card/30 border border-border rounded-xl p-6 md:p-8"
           >
+            {song.originalLanguage !== lang && (
+              <p className="text-[0.6875rem] text-muted-foreground/40 mb-3 italic">
+                {song.originalLanguage === "zh" ? ui.song.originalZh[lang] : ui.song.originalEn[lang]}
+              </p>
+            )}
             <pre className="font-['Cormorant_Garamond',serif] text-[1.0625rem] text-foreground/70 leading-[1.9] whitespace-pre-wrap italic">
               {song.lyrics}
             </pre>
@@ -242,7 +251,7 @@ export function SongPage() {
             className="flex items-center gap-2 text-[0.8125rem] text-foreground/80 mb-4 hover:text-foreground transition-colors"
           >
             <span className="tracking-wider uppercase text-[0.75rem]">
-              Behind the Song
+              {ui.song.behindTheSong[lang]}
             </span>
             {showBehind ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
@@ -255,7 +264,7 @@ export function SongPage() {
               className="bg-card/30 border border-border rounded-xl p-6 md:p-8"
             >
               <p className="text-[0.9375rem] text-muted-foreground/80 leading-relaxed">
-                {song.behindTheSong}
+                {song.behindTheSong[lang]}
               </p>
             </motion.div>
           )}

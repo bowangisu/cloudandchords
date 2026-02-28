@@ -1,32 +1,35 @@
 import { motion } from "motion/react";
 import { Coffee, Heart, Download, Sparkles } from "lucide-react";
-
-const supportOptions = [
-  {
-    icon: Coffee,
-    title: "Buy Me a Coffee",
-    description: "A small gesture that means the world. No account required.",
-    action: "Buy a Coffee — $5",
-    href: "https://buymeacoffee.com",
-  },
-  {
-    icon: Download,
-    title: "Download a Song",
-    description: "Support the project by purchasing a high-quality download.",
-    action: "Download — $0.99",
-    href: "#",
-  },
-  {
-    icon: Heart,
-    title: "Pay What You Want",
-    description:
-      "Choose your own amount. Every contribution keeps this project alive.",
-    action: "Choose Amount",
-    href: "#",
-  },
-];
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 export function Support() {
+  const { lang } = useLanguage();
+
+  const supportOptions = [
+    {
+      icon: Coffee,
+      title: ui.support.coffee[lang],
+      description: ui.support.coffeeDesc[lang],
+      action: ui.support.coffeeAction[lang],
+      href: "https://buymeacoffee.com",
+    },
+    {
+      icon: Download,
+      title: ui.support.download[lang],
+      description: ui.support.downloadDesc[lang],
+      action: ui.support.downloadAction[lang],
+      href: "#",
+    },
+    {
+      icon: Heart,
+      title: ui.support.payWhat[lang],
+      description: ui.support.payWhatDesc[lang],
+      action: ui.support.payWhatAction[lang],
+      href: "#",
+    },
+  ];
+
   return (
     <div className="max-w-2xl mx-auto px-6 py-16 md:py-24">
       <motion.div
@@ -35,24 +38,22 @@ export function Support() {
         transition={{ duration: 0.7 }}
       >
         <p className="text-[0.75rem] tracking-[0.3em] uppercase text-muted-foreground/50 mb-6">
-          Support
+          {ui.support.label[lang]}
         </p>
 
         <h1 className="font-['Cormorant_Garamond',serif] text-[2rem] md:text-[2.5rem] text-foreground/95 leading-tight mb-4">
-          Keep the Music Going
+          {ui.support.title[lang]}
         </h1>
 
         <p className="text-[0.9375rem] text-muted-foreground/70 leading-relaxed mb-12 max-w-lg">
-          This is a personal project, not a business. If a song moved you, made
-          you think, or simply accompanied a quiet moment — that's enough. But
-          if you'd like to support the work, here are some ways.
+          {ui.support.description[lang]}
         </p>
       </motion.div>
 
       <div className="space-y-4">
         {supportOptions.map((option, i) => (
           <motion.a
-            key={option.title}
+            key={i}
             href={option.href}
             target="_blank"
             rel="noopener noreferrer"
@@ -95,8 +96,7 @@ export function Support() {
           <Sparkles size={16} className="text-muted-foreground/30" />
         </div>
         <p className="text-[0.875rem] text-muted-foreground/50 leading-relaxed italic font-['Cormorant_Garamond',serif] max-w-md mx-auto">
-          "The best thing you can do is listen, and share a song with someone
-          who might need it. That's support enough."
+          {ui.support.personalNote[lang]}
         </p>
         <p className="text-[0.75rem] text-muted-foreground/30 mt-3">
           — Bo

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { usePlayer } from "./PlayerContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { useLanguage } from "../i18n/LanguageContext";
+import ui from "../i18n/ui";
 
 export function MiniPlayer() {
   const {
@@ -11,12 +13,12 @@ export function MiniPlayer() {
     isPlaying,
     progress,
     currentSeconds,
-    totalSeconds,
     togglePlay,
     seekTo,
     stop,
   } = usePlayer();
   const [isMuted, setIsMuted] = useState(false);
+  const { lang } = useLanguage();
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
@@ -62,7 +64,7 @@ export function MiniPlayer() {
             >
               <ImageWithFallback
                 src={currentSong.coverImage}
-                alt={currentSong.title}
+                alt={currentSong.title[lang]}
                 className="w-full h-full object-cover"
               />
             </Link>
@@ -73,10 +75,10 @@ export function MiniPlayer() {
               className="flex-1 min-w-0"
             >
               <p className="text-[0.8125rem] text-foreground/90 truncate font-['Cormorant_Garamond',serif]">
-                {currentSong.title}
+                {currentSong.title[lang]}
               </p>
               <p className="text-[0.6875rem] text-muted-foreground/50 truncate">
-                {currentSong.subtitle}
+                {currentSong.subtitle[lang]}
               </p>
             </Link>
 
@@ -115,7 +117,7 @@ export function MiniPlayer() {
           </div>
 
           <p className="text-center text-[0.5625rem] text-muted-foreground/25 pb-2 font-['Cormorant_Garamond',serif] italic">
-            Demo playback — full audio coming soon
+            {ui.song.demoPlayback[lang]}
           </p>
         </motion.div>
       )}

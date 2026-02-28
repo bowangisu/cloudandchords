@@ -2,8 +2,10 @@ import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Play, Pause } from "lucide-react";
 import type { Song } from "../data/songs";
+import { categories } from "../data/songs";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { usePlayer } from "./PlayerContext";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface SongCardProps {
   song: Song;
@@ -11,17 +13,20 @@ interface SongCardProps {
 }
 
 const categoryColors: Record<string, string> = {
-  leadership: "bg-amber-900/30 text-amber-200/80",
-  founder: "bg-blue-900/30 text-blue-200/80",
-  blues: "bg-purple-900/30 text-purple-200/80",
+  love: "bg-rose-900/30 text-rose-200/80",
   reflection: "bg-stone-800/40 text-stone-300/80",
-  family: "bg-rose-900/30 text-rose-200/80",
+  wuxia: "bg-amber-900/30 text-amber-200/80",
+  faith: "bg-blue-900/30 text-blue-200/80",
+  family: "bg-emerald-900/30 text-emerald-200/80",
+  resilience: "bg-purple-900/30 text-purple-200/80",
 };
 
 export function SongCard({ song, index }: SongCardProps) {
   const { currentSong, isPlaying, playSong } = usePlayer();
+  const { lang } = useLanguage();
   const isCurrentSong = currentSong?.id === song.id;
   const isThisPlaying = isCurrentSong && isPlaying;
+  const catLabel = categories.find((c) => c.id === song.category)?.label[lang] ?? song.category;
 
   const handlePlay = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -43,7 +48,7 @@ export function SongCard({ song, index }: SongCardProps) {
         <div className="aspect-square overflow-hidden relative">
           <ImageWithFallback
             src={song.coverImage}
-            alt={song.title}
+            alt={song.title[lang]}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -104,17 +109,17 @@ export function SongCard({ song, index }: SongCardProps) {
               categoryColors[song.category] || "bg-stone-800/40 text-stone-300/80"
             }`}
           >
-            {song.category}
+            {catLabel}
           </span>
         </div>
 
         {/* Info */}
         <div className="p-4">
           <h3 className="text-[0.9375rem] text-foreground mb-0.5 group-hover:text-foreground/90 transition-colors font-['Cormorant_Garamond',serif]">
-            {song.title}
+            {song.title[lang]}
           </h3>
           <p className="text-[0.75rem] text-muted-foreground/70 italic">
-            {song.subtitle}
+            {song.subtitle[lang]}
           </p>
         </div>
       </Link>
