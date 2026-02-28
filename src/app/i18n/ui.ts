@@ -37,6 +37,8 @@ const ui = {
     demoPlayback: { en: "Demo playback — full audio coming soon",           zh: "演示播放 — 完整音频即将上线" },
     notFound:     { en: "Song not found.",                                  zh: "未找到歌曲。" },
     support:      { en: "Support",                                          zh: "支持" },
+    like:         { en: "Like",                                             zh: "喜欢" },
+    liked:        { en: "Liked",                                            zh: "已喜欢" },
     originalEn:   { en: "",                                                 zh: "原文为英文歌词" },
     originalZh:   { en: "Original lyrics in Chinese",                       zh: "" },
   },

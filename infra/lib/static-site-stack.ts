@@ -5,6 +5,10 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
+import * as apigwv2integrations from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { Construct } from 'constructs';
 
 interface StaticSiteStackProps extends cdk.StackProps {
@@ -42,6 +46,58 @@ export class StaticSiteStack extends cdk.Stack {
         ? acm.CertificateValidation.fromDns(hostedZone)
         : acm.CertificateValidation.fromDns(),
     });
+
+    // --- Likes API backend ---
+
+    // DynamoDB table for song likes
+    const likesTable = new dynamodb.Table(this, 'LikesTable', {
+      partitionKey: { name: 'songId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+      tableName: `${domainName}-likes`,
+    });
+
+    // Lambda function for likes API
+    const likesFunction = new lambda.Function(this, 'LikesFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'likes.handler',
+      code: lambda.Code.fromAsset('lambda'),
+      environment: {
+        TABLE_NAME: likesTable.tableName,
+      },
+      timeout: cdk.Duration.seconds(10),
+      memorySize: 128,
+    });
+
+    likesTable.grantReadWriteData(likesFunction);
+
+    // HTTP API Gateway
+    const httpApi = new apigwv2.HttpApi(this, 'LikesApi', {
+      apiName: `${domainName}-likes-api`,
+    });
+
+    const lambdaIntegration = new apigwv2integrations.HttpLambdaIntegration(
+      'LikesIntegration',
+      likesFunction,
+    );
+
+    httpApi.addRoutes({
+      path: '/api/likes',
+      methods: [apigwv2.HttpMethod.GET],
+      integration: lambdaIntegration,
+    });
+
+    httpApi.addRoutes({
+      path: '/api/likes/{songId}',
+      methods: [apigwv2.HttpMethod.POST],
+      integration: lambdaIntegration,
+    });
+
+    // API Gateway origin for CloudFront
+    const apiOrigin = new origins.HttpOrigin(
+      cdk.Fn.select(2, cdk.Fn.split('/', httpApi.apiEndpoint)),
+      { protocolPolicy: cloudfront.OriginProtocolPolicy.HTTPS_ONLY },
+    );
 
     // Security response headers policy
     const securityHeadersPolicy = new cloudfront.ResponseHeadersPolicy(this, 'SecurityHeadersPolicy', {
@@ -93,6 +149,15 @@ export class StaticSiteStack extends cdk.Stack {
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
         responseHeadersPolicy: securityHeadersPolicy,
+      },
+      additionalBehaviors: {
+        'api/*': {
+          origin: apiOrigin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+          cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+        },
       },
       domainNames: [domainName, `www.${domainName}`],
       certificate,
@@ -163,6 +228,11 @@ export class StaticSiteStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'DistributionDomain', {
       value: distribution.distributionDomainName,
       description: 'CloudFront distribution domain name',
+    });
+
+    new cdk.CfnOutput(this, 'ApiEndpoint', {
+      value: httpApi.apiEndpoint,
+      description: 'API Gateway endpoint for likes API',
     });
   }
 }

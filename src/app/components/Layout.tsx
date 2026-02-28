@@ -1,6 +1,7 @@
 import { Music, User, Heart, Menu, X, PenLine } from "lucide-react";
 import { useState } from "react";
 import { PlayerProvider } from "./PlayerContext";
+import { LikesProvider } from "./LikesContext";
 import { MiniPlayer } from "./MiniPlayer";
 import { LanguageToggle } from "./LanguageToggle";
 import { Outlet, useLocation } from "react-router";
@@ -23,6 +24,7 @@ export function Layout() {
 
   return (
     <PlayerProvider>
+    <LikesProvider>
     <div className="min-h-screen bg-background text-foreground font-['Inter',sans-serif]">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -116,6 +118,7 @@ export function Layout() {
       {/* Global Mini Player */}
       <MiniPlayer />
     </div>
+    </LikesProvider>
     </PlayerProvider>
   );
 }

@@ -16,6 +16,7 @@ import { usePlayer } from "./PlayerContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useLanguage } from "../i18n/LanguageContext";
 import ui from "../i18n/ui";
+import { LikeButton } from "./LikeButton";
 
 const categoryColors: Record<string, string> = {
   love: "bg-rose-900/30 text-rose-200/80",
@@ -211,6 +212,7 @@ export function SongPage() {
         transition={{ duration: 0.6, delay: 0.4 }}
         className="flex items-center gap-3 mb-10"
       >
+        <LikeButton songId={song.id} variant="page" />
         <button
           onClick={handleShare}
           className="inline-flex items-center gap-2 text-[0.75rem] tracking-wider uppercase text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20 px-4 py-2.5 rounded-full transition-all"

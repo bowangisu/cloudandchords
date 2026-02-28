@@ -7,6 +7,7 @@ import { categories } from "../data/songs";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { usePlayer } from "./PlayerContext";
 import { useLanguage } from "../i18n/LanguageContext";
+import { LikeButton } from "./LikeButton";
 
 interface SongCardProps {
   song: Song;
@@ -112,8 +113,9 @@ export function SongCard({ song, index }: SongCardProps) {
             </div>
           )}
 
-          {/* Duration badge & share button */}
+          {/* Duration badge, like & share buttons */}
           <div className="absolute top-3 right-3 flex items-center gap-1.5">
+            <LikeButton songId={song.id} variant="card" />
             <button
               onClick={handleShare}
               className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
