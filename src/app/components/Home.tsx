@@ -9,7 +9,7 @@ import ui from "../i18n/ui";
 type ViewMode = "category" | "timeline";
 
 export function Home() {
-  const [viewMode, setViewMode] = useState<ViewMode>("category");
+  const [viewMode, setViewMode] = useState<ViewMode>("timeline");
   const [activeCategory, setActiveCategory] = useState("all");
   const filteredSongs = getSongsByCategory(activeCategory);
   const chronologicalGroups = getSongsChronological();
