@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Play, Pause, X, Volume2, VolumeX } from "lucide-react";
-import { Link } from "react-router";
+import { Link } from "./AppLink";
 import { usePlayer } from "./PlayerContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useLanguage } from "../i18n/LanguageContext";

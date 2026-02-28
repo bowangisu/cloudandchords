@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "./AppLink";
 import { useLanguage } from "../i18n/LanguageContext";
 import ui from "../i18n/ui";
 

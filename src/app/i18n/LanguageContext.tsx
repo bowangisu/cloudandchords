@@ -1,6 +1,15 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 
 export type Language = "en" | "zh";
+export type UrlLang = "en" | "cn";
+
+export function urlLangToLang(urlLang: string): Language {
+  return urlLang === "cn" ? "zh" : "en";
+}
+
+export function langToUrlLang(lang: Language): UrlLang {
+  return lang === "zh" ? "cn" : "en";
+}
 
 export interface BilingualText {
   en: string;

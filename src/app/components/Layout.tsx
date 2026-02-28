@@ -3,7 +3,8 @@ import { useState } from "react";
 import { PlayerProvider } from "./PlayerContext";
 import { MiniPlayer } from "./MiniPlayer";
 import { LanguageToggle } from "./LanguageToggle";
-import { Link, Outlet, useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
+import { Link } from "./AppLink";
 import { motion } from "motion/react";
 import { useLanguage } from "../i18n/LanguageContext";
 import ui from "../i18n/ui";
@@ -36,11 +37,12 @@ export function Layout() {
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
+              const pathWithoutLang = location.pathname.replace(/^\/(en|cn)/, "");
               const isActive =
                 link.to === "/"
-                  ? location.pathname === "/" ||
-                    location.pathname.startsWith("/song")
-                  : location.pathname.startsWith(link.to);
+                  ? pathWithoutLang === "/" || pathWithoutLang === "" ||
+                    pathWithoutLang.startsWith("/song")
+                  : pathWithoutLang.startsWith(link.to);
               return (
                 <Link
                   key={link.to}

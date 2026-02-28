@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "./AppLink";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { posts, postCategories, getPostsByCategory, type BlogPost } from "../data/posts";

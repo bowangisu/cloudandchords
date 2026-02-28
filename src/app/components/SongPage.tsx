@@ -1,4 +1,5 @@
-import { useParams, Link } from "react-router";
+import { useParams } from "react-router";
+import { Link } from "./AppLink";
 import { motion } from "motion/react";
 import {
   ArrowLeft,

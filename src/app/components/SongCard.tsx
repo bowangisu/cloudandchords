@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "./AppLink";
 import { motion } from "motion/react";
 import { Play, Pause, Share2, Check } from "lucide-react";
 import { useState } from "react";
@@ -40,7 +40,8 @@ export function SongCard({ song, index }: SongCardProps) {
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const url = `${window.location.origin}/song/${song.id}`;
+    const langPrefix = window.location.pathname.startsWith("/cn") ? "/cn" : "/en";
+    const url = `${window.location.origin}${langPrefix}/song/${song.id}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
