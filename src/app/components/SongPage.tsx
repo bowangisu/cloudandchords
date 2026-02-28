@@ -219,7 +219,7 @@ export function SongPage() {
         </button>
 
         <a
-          href="https://buymeacoffee.com"
+          href="https://buymeacoffee.com/cloudandchords"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-[0.75rem] tracking-wider uppercase text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20 px-4 py-2.5 rounded-full transition-all"
