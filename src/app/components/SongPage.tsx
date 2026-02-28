@@ -9,6 +9,7 @@ import {
   Coffee,
   Play,
   Pause,
+  Headphones,
 } from "lucide-react";
 import { useState } from "react";
 import { getSongById, categories } from "../data/songs";
@@ -17,6 +18,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useLanguage } from "../i18n/LanguageContext";
 import ui from "../i18n/ui";
 import { LikeButton } from "./LikeButton";
+import { useLikes } from "./LikesContext";
 
 const categoryColors: Record<string, string> = {
   love: "bg-rose-900/30 text-rose-200/80",
@@ -35,6 +37,7 @@ export function SongPage() {
   const [copied, setCopied] = useState(false);
   const { currentSong, isPlaying, progress, currentSeconds, totalSeconds, playSong, seekTo } = usePlayer();
   const { lang } = useLanguage();
+  const { plays } = useLikes();
 
   if (!song) {
     return (
@@ -213,6 +216,12 @@ export function SongPage() {
         className="flex items-center gap-3 mb-10"
       >
         <LikeButton songId={song.id} variant="page" />
+        {(plays[song.id] || 0) > 0 && (
+          <span className="inline-flex items-center gap-2 text-[0.75rem] tracking-wider text-muted-foreground/50 px-4 py-2.5">
+            <Headphones size={13} />
+            {plays[song.id]}
+          </span>
+        )}
         <button
           onClick={handleShare}
           className="inline-flex items-center gap-2 text-[0.75rem] tracking-wider uppercase text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20 px-4 py-2.5 rounded-full transition-all"

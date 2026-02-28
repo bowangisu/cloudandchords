@@ -9,8 +9,10 @@ import {
 
 interface LikesContextType {
   likes: Record<string, number>;
+  plays: Record<string, number>;
   likedSongs: Set<string>;
   likeSong: (songId: string) => void;
+  recordPlay: (songId: string) => void;
 }
 
 const LikesContext = createContext<LikesContextType | null>(null);
@@ -38,12 +40,16 @@ function storeLikes(likedSongs: Set<string>) {
 
 export function LikesProvider({ children }: { children: ReactNode }) {
   const [likes, setLikes] = useState<Record<string, number>>({});
+  const [plays, setPlays] = useState<Record<string, number>>({});
   const [likedSongs, setLikedSongs] = useState<Set<string>>(getStoredLikes);
 
   useEffect(() => {
     fetch("/api/likes")
       .then((res) => res.json())
-      .then((data) => setLikes(data.likes || {}))
+      .then((data) => {
+        setLikes(data.likes || {});
+        setPlays(data.plays || {});
+      })
       .catch((err) => console.error("Failed to fetch likes:", err));
   }, []);
 
@@ -82,8 +88,18 @@ export function LikesProvider({ children }: { children: ReactNode }) {
     [likedSongs]
   );
 
+  const recordPlay = useCallback((songId: string) => {
+    setPlays((prev) => ({ ...prev, [songId]: (prev[songId] || 0) + 1 }));
+    fetch(`/api/plays/${songId}`, { method: "POST" })
+      .then((res) => res.json())
+      .then((data) => {
+        setPlays((prev) => ({ ...prev, [songId]: data.plays }));
+      })
+      .catch((err) => console.error("Failed to record play:", err));
+  }, []);
+
   return (
-    <LikesContext.Provider value={{ likes, likedSongs, likeSong }}>
+    <LikesContext.Provider value={{ likes, plays, likedSongs, likeSong, recordPlay }}>
       {children}
     </LikesContext.Provider>
   );

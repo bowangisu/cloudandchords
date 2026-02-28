@@ -14,16 +14,18 @@ exports.handler = async (event) => {
   const path = event.rawPath || event.path;
 
   try {
-    // GET /api/likes — return all like counts
+    // GET /api/likes — return all like and play counts
     if (method === "GET" && path === "/api/likes") {
       const result = await ddb.send(
         new ScanCommand({ TableName: TABLE_NAME })
       );
       const likes = {};
+      const plays = {};
       for (const item of result.Items || []) {
         likes[item.songId] = item.likes || 0;
+        plays[item.songId] = item.plays || 0;
       }
-      return respond(200, { likes });
+      return respond(200, { likes, plays });
     }
 
     // POST /api/likes/{songId} — increment like counter
@@ -43,6 +45,26 @@ exports.handler = async (event) => {
       return respond(200, {
         songId,
         likes: result.Attributes.likes,
+      });
+    }
+
+    // POST /api/plays/{songId} — increment play counter
+    if (method === "POST" && path.startsWith("/api/plays/")) {
+      const songId = decodeURIComponent(path.replace("/api/plays/", ""));
+      if (!songId) return respond(400, { error: "Missing songId" });
+
+      const result = await ddb.send(
+        new UpdateCommand({
+          TableName: TABLE_NAME,
+          Key: { songId },
+          UpdateExpression: "ADD plays :inc",
+          ExpressionAttributeValues: { ":inc": 1 },
+          ReturnValues: "ALL_NEW",
+        })
+      );
+      return respond(200, {
+        songId,
+        plays: result.Attributes.plays,
       });
     }
 

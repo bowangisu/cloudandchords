@@ -93,6 +93,12 @@ export class StaticSiteStack extends cdk.Stack {
       integration: lambdaIntegration,
     });
 
+    httpApi.addRoutes({
+      path: '/api/plays/{songId}',
+      methods: [apigwv2.HttpMethod.POST],
+      integration: lambdaIntegration,
+    });
+
     // API Gateway origin for CloudFront
     const apiOrigin = new origins.HttpOrigin(
       cdk.Fn.select(2, cdk.Fn.split('/', httpApi.apiEndpoint)),

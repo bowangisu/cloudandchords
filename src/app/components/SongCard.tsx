@@ -1,6 +1,6 @@
 import { Link } from "./AppLink";
 import { motion } from "motion/react";
-import { Play, Pause, Share2, Check } from "lucide-react";
+import { Play, Pause, Share2, Check, Headphones } from "lucide-react";
 import { useState } from "react";
 import type { Song } from "../data/songs";
 import { categories } from "../data/songs";
@@ -8,6 +8,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { usePlayer } from "./PlayerContext";
 import { useLanguage } from "../i18n/LanguageContext";
 import { LikeButton } from "./LikeButton";
+import { useLikes } from "./LikesContext";
 
 interface SongCardProps {
   song: Song;
@@ -26,6 +27,7 @@ const categoryColors: Record<string, string> = {
 export function SongCard({ song, index }: SongCardProps) {
   const { currentSong, isPlaying, playSong } = usePlayer();
   const { lang } = useLanguage();
+  const { plays } = useLikes();
   const isCurrentSong = currentSong?.id === song.id;
   const isThisPlaying = isCurrentSong && isPlaying;
   const catLabel = categories.find((c) => c.id === song.category)?.label[lang] ?? song.category;
@@ -145,6 +147,14 @@ export function SongCard({ song, index }: SongCardProps) {
           <p className="text-[0.75rem] text-muted-foreground/70 italic">
             {song.subtitle[lang]}
           </p>
+          {(plays[song.id] || 0) > 0 && (
+            <div className="flex items-center gap-1 mt-1.5">
+              <Headphones size={11} className="text-muted-foreground/40" />
+              <span className="text-[0.6875rem] text-muted-foreground/40 tabular-nums">
+                {plays[song.id]}
+              </span>
+            </div>
+          )}
         </div>
       </Link>
     </motion.div>

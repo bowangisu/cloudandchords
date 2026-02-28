@@ -10,8 +10,8 @@ const ui = {
     hero1:    { en: "Songs written between", zh: "写于代码与" },
     hero2:    { en: "code and quiet nights.", zh: "静夜之间的歌。" },
     heroDesc: {
-      en: "AI-assisted music exploring ambition, doubt, love, and becoming.\nA personal creative home at the intersection of technology and tenderness.",
-      zh: "AI辅助音乐，探索野心、疑虑、爱与成长。\n一个在科技与温柔交汇处的个人创作空间。",
+      en: "AI-assisted music exploring ambition, love, and becoming.\nA personal creative home at the intersection of technology and tenderness.",
+      zh: "AI辅助音乐，探索梦想、爱与成长。\n一个在科技与人心交汇处的个人创作空间。",
     },
     noSongs:        { en: "No songs in this category yet.", zh: "该分类暂无歌曲。" },
     viewByCategory: { en: "By Category",   zh: "按分类" },
@@ -23,7 +23,7 @@ const ui = {
     },
     disclaimerNote: {
       en: "For inquiries, reach out via the Support page or email directly.",
-      zh: "如有疑问，请通过支持页面或直接发送邮件联系。",
+      zh: "如有疑问，请通过支持页面或直接发送邮件联系。bowang828@gmail.com",
     },
   },
   song: {
@@ -39,6 +39,7 @@ const ui = {
     support:      { en: "Support",                                          zh: "支持" },
     like:         { en: "Like",                                             zh: "喜欢" },
     liked:        { en: "Liked",                                            zh: "已喜欢" },
+    plays:        { en: "plays",                                            zh: "次播放" },
     originalEn:   { en: "",                                                 zh: "原文为英文歌词" },
     originalZh:   { en: "Original lyrics in Chinese",                       zh: "" },
   },
@@ -62,7 +63,7 @@ const ui = {
     title:   { en: "Who I Am", zh: "关于我" },
     section1: {
       en: "Hello, this is Bo. I build things in AI during the day, leading teams, shipping products, navigating the strange frontier of what machines can and cannot understand. When I have time and inspiration, I write songs with AI, exploring the intersection of technology and tenderness.",
-      zh: "你好，我是Bo。白天我在AI领域工作，带领团队，发布产品，探索机器能理解和不能理解的奇妙边界。当有时间和灵感时，我用AI写歌，探索科技与温柔的交汇点。",
+      zh: "你好，我是王博。白天我在AI领域工作，带领团队，发布产品，探索机器能理解和不能理解的奇妙边界。当有时间和灵感时，我用AI写歌，探索科技与人性的交汇点。",
     },
     section2: {
       en: "Not the kind of music that charts or goes viral. The kind that exists at the intersection of",
@@ -84,7 +85,7 @@ const ui = {
     whyPublish: { en: "Why I Publish Publicly", zh: "为什么公开发布" },
     section4: {
       en: "Because the things we make in private tend to stay unfinished. Because there's something honest about sharing work that isn't perfect. Because somewhere, someone who also builds AI by day and feels things deeply by night might hear one of these songs and think:",
-      zh: "因为私下里做的东西往往不了了之。因为分享不完美的作品本身就有一种诚实。因为在某个地方，某个白天也在做AI、夜晚也深有感触的人，可能会听到这些歌，然后想：",
+      zh: "因为私下里做的东西往往不了了之。因为分享不完美的作品本身就是一种诚实的面对自己。因为在某个地方，某个人，某个夜晚夜晚也深有感触的可能会听到这些歌，然后想：",
     },
     section4Quote: {
       en: "\"I'm not the only one.\"",
@@ -120,7 +121,7 @@ const ui = {
     tagline:  { en: "Bo Wang — AI Songs & Reflections",      zh: "Bo Wang — AI 音乐与思考" },
     subtitle: { en: "Written between code and quiet nights",  zh: "写于代码与静夜之间" },
   },
-  siteName: { en: "Between Cloud & Chords", zh: "云与和弦之间" },
+  siteName: { en: "Between Cloud & Chords", zh: "云和弦之间" },
 } as const;
 
 export default ui;

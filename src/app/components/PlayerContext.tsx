@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Song } from "../data/songs";
+import { useLikes } from "./LikesContext";
 
 interface PlayerContextType {
   currentSong: Song | null;
@@ -39,6 +40,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { recordPlay } = useLikes();
 
   // Create a persistent audio element
   useEffect(() => {
@@ -117,6 +119,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
           audio.load();
           audio.play().then(() => {
             setIsPlaying(true);
+            recordPlay(song.id);
           }).catch(() => {
             // Autoplay may be blocked by browser
             setIsPlaying(false);
@@ -124,7 +127,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         }
       }
     },
-    [currentSong, isPlaying]
+    [currentSong, isPlaying, recordPlay]
   );
 
   const togglePlay = useCallback(() => {

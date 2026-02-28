@@ -23,8 +23,8 @@ export function Layout() {
   ];
 
   return (
-    <PlayerProvider>
     <LikesProvider>
+    <PlayerProvider>
     <div className="min-h-screen bg-background text-foreground font-['Inter',sans-serif]">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -118,7 +118,7 @@ export function Layout() {
       {/* Global Mini Player */}
       <MiniPlayer />
     </div>
-    </LikesProvider>
     </PlayerProvider>
+    </LikesProvider>
   );
 }
