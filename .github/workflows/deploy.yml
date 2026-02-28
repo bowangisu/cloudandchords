@@ -35,6 +35,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to S3
+        # Audio files (songs/*.mp3) are excluded from CI sync — upload them to S3 once manually:
+        # aws s3 sync public/songs/ s3://$S3_BUCKET_NAME/songs/ --exclude "*.wav"
         run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude "songs/*"
 
       - name: Invalidate CloudFront cache

@@ -43,12 +43,56 @@ export class StaticSiteStack extends cdk.Stack {
         : acm.CertificateValidation.fromDns(),
     });
 
+    // Security response headers policy
+    const securityHeadersPolicy = new cloudfront.ResponseHeadersPolicy(this, 'SecurityHeadersPolicy', {
+      securityHeadersBehavior: {
+        strictTransportSecurity: {
+          accessControlMaxAge: cdk.Duration.days(365),
+          includeSubdomains: true,
+          preload: true,
+          override: true,
+        },
+        contentTypeOptions: { override: true },
+        frameOptions: {
+          frameOption: cloudfront.HeadersFrameOption.DENY,
+          override: true,
+        },
+        referrerPolicy: {
+          referrerPolicy: cloudfront.HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
+          override: true,
+        },
+        contentSecurityPolicy: {
+          contentSecurityPolicy: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline'",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+            "font-src 'self' https://fonts.gstatic.com",
+            "img-src 'self' https://images.unsplash.com data:",
+            "media-src 'self'",
+            "connect-src 'self'",
+            "frame-ancestors 'none'",
+          ].join('; '),
+          override: true,
+        },
+      },
+      customHeadersBehavior: {
+        customHeaders: [
+          {
+            header: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+            override: true,
+          },
+        ],
+      },
+    });
+
     // CloudFront distribution
     const distribution = new cloudfront.Distribution(this, 'SiteDistribution', {
       defaultBehavior: {
         origin: origins.S3BucketOrigin.withOriginAccessControl(siteBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+        responseHeadersPolicy: securityHeadersPolicy,
       },
       domainNames: [domainName, `www.${domainName}`],
       certificate,

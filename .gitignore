@@ -6,3 +6,4 @@ infra/cdk.out/
 .DS_Store
 .claude/
 public/songs/*.wav
+public/songs/*.mp3
