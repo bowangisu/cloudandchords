@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Coffee, Heart, Download, Sparkles } from "lucide-react";
+import { Coffee, Sparkles } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 import ui from "../i18n/ui";
 
@@ -12,21 +12,7 @@ export function Support() {
       title: ui.support.coffee[lang],
       description: ui.support.coffeeDesc[lang],
       action: ui.support.coffeeAction[lang],
-      href: "https://buymeacoffee.com",
-    },
-    {
-      icon: Download,
-      title: ui.support.download[lang],
-      description: ui.support.downloadDesc[lang],
-      action: ui.support.downloadAction[lang],
-      href: "#",
-    },
-    {
-      icon: Heart,
-      title: ui.support.payWhat[lang],
-      description: ui.support.payWhatDesc[lang],
-      action: ui.support.payWhatAction[lang],
-      href: "#",
+      href: "https://buymeacoffee.com/cloudandchords",
     },
   ];
 

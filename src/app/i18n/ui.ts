@@ -102,12 +102,6 @@ const ui = {
     coffee:      { en: "Buy Me a Coffee",                                    zh: "请我喝杯咖啡" },
     coffeeDesc:  { en: "A small gesture that means the world. No account required.", zh: "一个小小的举动，却意味着整个世界。无需注册。" },
     coffeeAction:{ en: "Buy a Coffee — $5",                                  zh: "请喝咖啡 — $5" },
-    download:    { en: "Download a Song",                                    zh: "下载一首歌" },
-    downloadDesc:{ en: "Support the project by purchasing a high-quality download.", zh: "购买高品质下载来支持这个项目。" },
-    downloadAction:{ en: "Download — $0.99",                                 zh: "下载 — $0.99" },
-    payWhat:     { en: "Pay What You Want",                                  zh: "随心支付" },
-    payWhatDesc: { en: "Choose your own amount. Every contribution keeps this project alive.", zh: "选择你想支付的金额。每一笔贡献都让这个项目继续。" },
-    payWhatAction:{ en: "Choose Amount",                                     zh: "选择金额" },
     personalNote: {
       en: "\"The best thing you can do is listen, and share a song with someone who might need it. That's support enough.\"",
       zh: "\"你能做的最好的事就是聆听，并把一首歌分享给可能需要它的人。这就是最好的支持。\"",
