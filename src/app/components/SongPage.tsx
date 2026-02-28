@@ -31,7 +31,7 @@ export function SongPage() {
   const [showLyrics, setShowLyrics] = useState(true);
   const [showBehind, setShowBehind] = useState(false);
   const [copied, setCopied] = useState(false);
-  const { currentSong, isPlaying, playSong } = usePlayer();
+  const { currentSong, isPlaying, progress, currentSeconds, totalSeconds, playSong, seekTo } = usePlayer();
   const { lang } = useLanguage();
 
   if (!song) {
@@ -49,6 +49,12 @@ export function SongPage() {
       </div>
     );
   }
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
 
   const isThisPlaying = currentSong?.id === song.id && isPlaying;
   const catLabel = categories.find((c) => c.id === song.category)?.label[lang] ?? song.category;
@@ -127,7 +133,7 @@ export function SongPage() {
         className="mb-8"
       >
         <div className="bg-card/50 border border-border rounded-2xl p-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => playSong(song)}
               className="w-12 h-12 rounded-full bg-foreground/10 hover:bg-foreground/20 flex items-center justify-center transition-all duration-300"
@@ -140,13 +146,38 @@ export function SongPage() {
             </button>
 
             <div className="flex-1">
-              <p className="text-[0.8125rem] text-muted-foreground">
+              <p className="text-[0.8125rem] text-muted-foreground mb-2">
                 {isThisPlaying ? ui.song.nowPlaying[lang] : ui.song.play[lang]} —{" "}
                 <span className="text-foreground/80">{song.title[lang]}</span>
               </p>
-              <p className="text-[0.6875rem] text-muted-foreground/40 mt-0.5">
-                {song.duration}
-              </p>
+
+              {/* Progress bar */}
+              <div
+                className="h-1.5 bg-foreground/10 rounded-full cursor-pointer group"
+                onClick={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const percentage = (x / rect.width) * 100;
+                  if (!isThisPlaying && !currentSong) playSong(song);
+                  seekTo(percentage);
+                }}
+              >
+                <div
+                  className="h-full bg-gradient-to-r from-foreground/40 to-foreground/70 rounded-full relative"
+                  style={{ width: `${isThisPlaying ? progress : 0}%` }}
+                >
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
+
+              <div className="flex justify-between mt-1.5">
+                <span className="text-[0.6875rem] text-muted-foreground/60 tabular-nums">
+                  {formatTime(isThisPlaying ? currentSeconds : 0)}
+                </span>
+                <span className="text-[0.6875rem] text-muted-foreground/60">
+                  {song.duration}
+                </span>
+              </div>
             </div>
 
             {isThisPlaying && (
@@ -169,10 +200,6 @@ export function SongPage() {
               </span>
             )}
           </div>
-
-          <p className="text-[0.6875rem] text-muted-foreground/40 text-center italic font-['Cormorant_Garamond',serif] mt-4">
-            {ui.song.demoPlayback[lang]}
-          </p>
         </div>
       </motion.div>
 

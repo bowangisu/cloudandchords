@@ -45,14 +45,14 @@ export function MiniPlayer() {
         >
           {/* Progress bar at top of mini player */}
           <div
-            className="h-1 bg-foreground/5 cursor-pointer group"
+            className="h-1.5 bg-foreground/10 cursor-pointer group"
             onClick={handleProgressClick}
           >
             <div
-              className="h-full bg-gradient-to-r from-foreground/30 to-foreground/60 transition-all duration-300 relative"
+              className="h-full bg-gradient-to-r from-foreground/40 to-foreground/70 relative"
               style={{ width: `${progress}%` }}
             >
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           </div>
 
