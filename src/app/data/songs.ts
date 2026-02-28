@@ -41,7 +41,7 @@ export const songs: Song[] = [
     coverImage: "/cover/RED.jpeg",
     duration: "5:12",
     originalLanguage: "en",
-    audioFile: "/songs/Red.mp3",
+    audioFile: "/songs/Red.wav",
     lyrics: `Look at the sky tonight,
 It's burning in your eyes,
 Every little spark you hide
@@ -131,7 +131,7 @@ Red.`,
     coverImage: "/cover/一边一边.jpeg",
     duration: "4:35",
     originalLanguage: "zh",
-    audioFile: "/songs/一边一边.mp3",
+    audioFile: "/songs/一边一边.wav",
     lyrics: `你走过很长很长的路，
 想看转过街角的风景。
 年少的时候不服输，
@@ -234,7 +234,7 @@ Red.`,
     coverImage: "/cover/刀光舞影.jpeg",
     duration: "4:22",
     originalLanguage: "zh",
-    audioFile: "/songs/刀光舞影.mp3",
+    audioFile: "/songs/刀光舞影.wav",
     lyrics: `踏雪无声，夜半出城，
 剑光冷冷，照我半生。
 她说江湖远，爱也长，
@@ -292,7 +292,7 @@ Red.`,
     coverImage: "/cover/同一束光.jpeg",
     duration: "5:03",
     originalLanguage: "zh",
-    audioFile: "/songs/同一束光.mp3",
+    audioFile: "/songs/同一束光.wav",
     lyrics: `无名的风
 穿过沙漠与雪山
 在夜空下
@@ -384,7 +384,7 @@ Salaam ——
     coverImage: "/cover/慢慢长大.jpeg",
     duration: "4:18",
     originalLanguage: "zh",
-    audioFile: "/songs/慢慢长大.mp3",
+    audioFile: "/songs/慢慢长大.wav",
     lyrics: `你还是学不会自己穿袜子
 总是赖着我，说"爸爸帮一下"
 清晨的阳光洒进小小的房间
@@ -447,7 +447,7 @@ Salaam ——
     coverImage: "/cover/抬起头继续走.jpeg",
     duration: "4:05",
     originalLanguage: "zh",
-    audioFile: "/songs/抬起头继续走.mp3",
+    audioFile: "/songs/抬起头继续走.wav",
     lyrics: `凌晨的灯还亮着光，
 你独自走在回家的路上。
 肩上的梦有些沉重，
@@ -501,7 +501,7 @@ Salaam ——
     coverImage: "/cover/长夜孤舟.jpeg",
     duration: "3:55",
     originalLanguage: "zh",
-    audioFile: "/songs/长夜孤舟.mp3",
+    audioFile: "/songs/长夜孤舟.wav",
     lyrics: `谪居千里之外，孤影随江水漂
 一纸诏书，碎我梦中画桥
 星沉海底，谁听我长啸？
@@ -548,7 +548,7 @@ Salaam ——
     coverImage: "/cover/长安布鲁斯.jpeg",
     duration: "5:28",
     originalLanguage: "zh",
-    audioFile: "/songs/长安布鲁斯  (Remastered).mp3",
+    audioFile: "/songs/长安布鲁斯  (Remastered).wav",
     lyrics: `清晨醒来，又是异乡的床
 清晨醒来，又是异乡的窗
 梦里她还在长安，
