@@ -29,6 +29,26 @@ export const categories: { id: string; label: BilingualText }[] = [
 
 export const songs: Song[] = [
   {
+    id: "bright-side-of-the-moon",
+    releaseDate: "2026-03",
+    title: { en: "Bright Side of the Moon", zh: "Bright Side of the Moon" },
+    subtitle: { en: "An instrumental journey from uncertainty to clarity", zh: "从迷茫到清晰的器乐之旅" },
+    category: "reflection",
+    description: {
+      en: "An instrumental journey from uncertainty to clarity. Beginning in a quiet, cosmic atmosphere and gradually building into motion and light, the piece blends space-inspired ambience with expressive guitar melodies. A reminder that beyond the pressure and darkness, there is always another perspective — the bright side waiting to be discovered.",
+      zh: "一段从迷茫到清晰的器乐旅程。从宁静的宇宙氛围开始，逐渐汇聚成律动与光芒，这首曲子将太空般的氛围与富有表现力的吉他旋律融为一体。它提醒我们，在生活中经历的压力与黑暗之外，总有另一种视角——那个等待被发现的光明面。",
+    },
+    coverImage: "/cover/BrightSideofTheMoon.png",
+    duration: "5:32",
+    originalLanguage: "en",
+    audioFile: "/songs/Bright Side of the Moon.mp3",
+    lyrics: "",
+    behindTheSong: {
+      en: "Bright Side of the Moon is an instrumental journey from uncertainty to clarity. Beginning in a quiet, cosmic atmosphere and gradually building into motion and light, the piece blends space-inspired ambience with expressive guitar melodies. It's a reminder that beyond the pressure and darkness we experience in life, there is always another perspective — the bright side waiting to be discovered.",
+      zh: "Bright Side of the Moon 是一段从迷茫到清晰的器乐旅程。从宁静的宇宙氛围开始，逐渐汇聚成律动与光芒，这首曲子将太空般的氛围与富有表现力的吉他旋律融为一体。它提醒我们，在生活中经历的压力与黑暗之外，总有另一种视角——那个等待被发现的光明面。",
+    },
+  },
+  {
     id: "red",
     releaseDate: "2026-02",
     title: { en: "Red", zh: "Red" },

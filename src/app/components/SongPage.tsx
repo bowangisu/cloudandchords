@@ -242,40 +242,42 @@ export function SongPage() {
       </motion.div>
 
       {/* Lyrics */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        className="mb-8"
-      >
-        <button
-          onClick={() => setShowLyrics(!showLyrics)}
-          className="flex items-center gap-2 text-[0.8125rem] text-foreground/80 mb-4 hover:text-foreground transition-colors"
+      {song.lyrics && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mb-8"
         >
-          <span className="tracking-wider uppercase text-[0.75rem]">
-            {ui.song.lyrics[lang]}
-          </span>
-          {showLyrics ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-        </button>
-
-        {showLyrics && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            transition={{ duration: 0.4 }}
-            className="bg-card/30 border border-border rounded-xl p-6 md:p-8"
+          <button
+            onClick={() => setShowLyrics(!showLyrics)}
+            className="flex items-center gap-2 text-[0.8125rem] text-foreground/80 mb-4 hover:text-foreground transition-colors"
           >
-            {song.originalLanguage !== lang && (
-              <p className="text-[0.6875rem] text-muted-foreground/40 mb-3 italic">
-                {song.originalLanguage === "zh" ? ui.song.originalZh[lang] : ui.song.originalEn[lang]}
-              </p>
-            )}
-            <pre className="font-['Cormorant_Garamond',serif] text-[1.0625rem] text-foreground/70 leading-[1.9] whitespace-pre-wrap italic">
-              {song.lyrics}
-            </pre>
-          </motion.div>
-        )}
-      </motion.div>
+            <span className="tracking-wider uppercase text-[0.75rem]">
+              {ui.song.lyrics[lang]}
+            </span>
+            {showLyrics ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+          </button>
+
+          {showLyrics && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              transition={{ duration: 0.4 }}
+              className="bg-card/30 border border-border rounded-xl p-6 md:p-8"
+            >
+              {song.originalLanguage !== lang && (
+                <p className="text-[0.6875rem] text-muted-foreground/40 mb-3 italic">
+                  {song.originalLanguage === "zh" ? ui.song.originalZh[lang] : ui.song.originalEn[lang]}
+                </p>
+              )}
+              <pre className="font-['Cormorant_Garamond',serif] text-[1.0625rem] text-foreground/70 leading-[1.9] whitespace-pre-wrap italic">
+                {song.lyrics}
+              </pre>
+            </motion.div>
+          )}
+        </motion.div>
+      )}
 
       {/* Behind the Song */}
       {song.behindTheSong && (
