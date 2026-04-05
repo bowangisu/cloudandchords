@@ -29,6 +29,102 @@ export const categories: { id: string; label: BilingualText }[] = [
 
 export const songs: Song[] = [
   {
+    id: "mao-tai-er-guo-tou",
+    releaseDate: "2026-04",
+    title: { en: "Maotai & Er Guo Tou", zh: "茅台二锅头" },
+    subtitle: { en: "Two drinks, two faces, one man", zh: "白天是别人，晚上才是我" },
+    category: "reflection",
+    description: {
+      en: "A Chinese blues rock anthem about the duality of modern life — Maotai for the polished business dinners, Er Guo Tou for the solitary nights. Two drinks that reveal two sides of one man.",
+      zh: "一首中国蓝调摇滚，关于现代生活的两面性——茅台属于光鲜的商务宴席，二锅头属于独处的深夜。两杯酒，照见一个人的两张面孔。",
+    },
+    coverImage: "/cover/茅台二锅头.png",
+    duration: "5:57",
+    originalLanguage: "zh",
+    audioFile: "/songs/茅台二锅头.mp3",
+    lyrics: `灯有点亮
+夜有点凉
+这杯酒 怎么越喝越像从前那样
+
+茅台倒进杯里 像一块金
+灯光照着每张 标准表情
+笑声一阵一阵 刚刚好
+连沉默都显得 很高级
+
+话说得漂亮 像写好的信
+敬来敬去 不问真心
+我举起杯 又放下杯
+像话到嘴边又收回
+
+名片换了一轮 又一轮
+名字却记不住几个人
+未来说得越来越真
+可心却越来越沉
+
+他们说这叫成长的代价
+他们说人总要学会假
+可灯一暗 人一散
+我连自己都不想回答
+
+白天喝茅台
+晚上喝二锅头
+白天是别人 晚上才是我
+
+一杯敬清醒
+一杯敬沉默
+一杯敬那些没说出口的话
+
+一杯敬远方
+一杯敬错过
+一杯敬回不去的那个我
+
+散场以后 风有点凉
+霓虹把影子 拉得很长
+我在街头拧开二锅头
+像打开旧时光
+
+第一口像火烧进喉咙
+第二口开始不再硬撑
+没有人听也没关系
+至少这一刻我还认得我
+
+有人说人要活得体面
+有人说眼泪不能让人看见
+有人说别回头
+有人说别想念
+可这城市这么大这么冷
+人来人往没有谁会等
+如果连痛都要藏得刚好
+那这一生算不算认真
+
+白天喝茅台
+敬世界的荒唐
+晚上喝二锅头
+敬我还没投降
+
+一杯敬兄弟
+一杯敬散场
+一杯敬那些再也见不到的人
+
+一杯敬年少
+一杯敬无常
+一杯敬走到最后的自己
+
+白天是别人
+晚上才是我
+如果连自己都骗过
+还剩什么
+
+风吹过空酒瓶
+没有人听见
+天已经亮了
+可我还没醒`,
+    behindTheSong: {
+      en: "Maotai is the expensive liquor poured at business dinners — a symbol of status and performance. Er Guo Tou is the cheap spirit you drink alone when nobody's watching — raw, honest, and real. This song is about the two sides of a man: the mask he wears in daylight and the person he becomes when the lights go out.",
+      zh: "茅台是商务宴席上倒的昂贵白酒——身份与表演的象征。二锅头是没人看见时独自喝的廉价烈酒——粗粝、真实、坦诚。这首歌写的是一个人的两面：白天戴着的面具，和灯灭之后才露出的真实自己。",
+    },
+  },
+  {
     id: "bright-side-of-the-moon",
     releaseDate: "2026-03",
     title: { en: "Bright Side of the Moon", zh: "Bright Side of the Moon" },
