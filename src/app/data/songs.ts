@@ -29,6 +29,55 @@ export const categories: { id: string; label: BilingualText }[] = [
 
 export const songs: Song[] = [
   {
+    id: "meng-die",
+    releaseDate: "2026-05",
+    title: { en: "Butterfly Dream", zh: "梦蝶" },
+    subtitle: {
+      en: "Am I the one who dreams, or the dream itself?",
+      zh: "是我在梦，还是我本就是梦？",
+    },
+    category: "reflection",
+    description: {
+      en: "A meditative response to Zhuangzi's ancient question — am I the one dreaming, or the dream itself? A quiet song that drifts between waking and sleep, letting the boundary of the self dissolve.",
+      zh: "一首沉静的歌，回应庄周千年前的那个问题——是我做了梦，还是我本就是梦？歌声在梦与醒之间游走，让「我」的边界轻轻溶解。",
+    },
+    coverImage: "/cover/梦蝶.jpeg",
+    duration: "5:01",
+    originalLanguage: "zh",
+    audioFile: "/songs/梦蝶.mp3",
+    lyrics: `夜落在水上
+我忘了形状
+一只蝶飞过梦的中央
+
+谁在问真假
+谁又在醒着
+月光不回答
+风也不说话
+
+我梦见我是风
+穿过万物
+不属于天空
+
+我梦见我是梦
+醒来的人
+困在梦中
+
+也许我不是我
+也许蝶不是蝶
+天地只借我
+做一瞬间的梦
+
+别叫醒我
+答案会散落
+若蝴蝶飞入星河
+我便随它
+不问因果`,
+    behindTheSong: {
+      en: "Zhuangzi once dreamed he was a butterfly, fluttering happily, unaware he was Zhuangzi. When he woke, he wondered: was he a man who had dreamed of being a butterfly, or a butterfly now dreaming it was a man? This song doesn't try to answer — it just sits inside the question, where waking and dreaming, self and other, gently lose their edges.",
+      zh: "庄子曾梦见自己是一只蝴蝶，自在飞舞，不知自己是庄周。醒来后他困惑：是庄周做梦变成了蝴蝶，还是蝴蝶正在做梦变成庄周？这首歌没有试图回答，只是停留在那个问题里——在醒与梦、我与他之间，让边界轻轻消散。",
+    },
+  },
+  {
     id: "mao-tai-er-guo-tou",
     releaseDate: "2026-04",
     title: { en: "Maotai & Er Guo Tou", zh: "茅台二锅头" },
